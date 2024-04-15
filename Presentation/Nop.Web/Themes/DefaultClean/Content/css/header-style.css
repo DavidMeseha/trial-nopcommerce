@@ -168,16 +168,22 @@
     display: inline-block;
     padding: 0 15px;
     text-align: center;
+    padding-block: 36px;
   }
 
 .header-menu .sublist {
-  display: none;
   position: absolute;
+  display: block;
+  visibility: hidden;
+  top: 91px;
+  opacity: 0;
   width: 200px;
-  box-shadow: 0 0 2px rgba(0,0,0,0.2);
+  box-shadow: 0 0 2px rgba(0,0,0,.2);
   background-color: #fff;
   padding: 10px 0;
   text-align: left;
+  transform: translate(0px, 9px);
+  transition: all 100ms;
 }
 
   .header-menu .sublist li {
@@ -209,7 +215,9 @@
 
 .header-menu ul li:hover > .sublist,
 .header-menu ul li:focus > .sublist {
-  display: block;
+  visibility: visible;
+  transform: translate(0, 0);
+  opacity: 1;
 }
 
 .header-menu .sublist .sublist {
@@ -227,6 +235,94 @@
   .header-selectors,
   .header-store-info {
     justify-content: center;
+  }
+}
+
+@media (max-width: 1000px) {
+  .header-menu {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+
+  .menu-toggle {
+    background: #4ab2f1 url('../images/menu-icon.png') right center no-repeat;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .top-menu {
+    display: none;
+  }
+
+    .top-menu > li {
+      position: relative;
+      margin: 1px 0;
+      background-color: #f6f6f6;
+    }
+
+      .top-menu > li > a {
+        display: block;
+        min-height: 55px;
+        padding: 18px;
+        font-size: 15px;
+        color: #555;
+      }
+
+        .top-menu > li > a:focus {
+          position: relative;
+          z-index: 1;
+        }
+
+    .top-menu .sublist {
+      display: none;
+      background-color: #fff;
+      padding: 5px 0;
+    }
+
+      .top-menu .sublist li {
+        position: relative;
+        margin: 1px 0 1px 20px;
+      }
+
+        .top-menu .sublist li a {
+          display: block;
+          padding: 15px 18px;
+          font-size: 15px;
+        }
+
+  .sublist-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55px;
+    height: 55px;
+    border-left: 1px solid #fff;
+    background: url('../images/toggle-black.png') center no-repeat;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .sublist .sublist-toggle {
+    height: auto;
+  }
+
+  .sublist .sublist li {
+    background-color: #f6f6f6;
+  }
+
+  .sublist .sublist .sublist li {
+    background-color: #fff;
   }
 }
 
