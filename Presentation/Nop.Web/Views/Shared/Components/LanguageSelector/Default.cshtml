@@ -1,0 +1,74 @@
+﻿@model LanguageSelectorModel
+
+@inject Nop.Core.IWebHelper webHelper
+
+@if (Model.AvailableLanguages.Count > 1)
+{
+    <div class="select-container">
+        @{
+            var returnUrl = webHelper.GetRawUrl(Context.Request);
+
+            if (Model.UseImages)
+            {
+                <ul class="language-list">
+                    @foreach (var lang in Model.AvailableLanguages)
+                    {
+                        <li>
+                            <a href="@Url.RouteUrl("ChangeLanguage", new { langid = lang.Id, returnUrl }, webHelper.GetCurrentRequestProtocol())" title="@lang.Name">
+                                <img title='@lang.Name' alt='@lang.Name' @(lang.Id == Model.CurrentLanguageId ? " class=selected" : null)
+                                     src="@Url.Content("~/images/flags/" + @lang.FlagImageFileName) " />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                var languages = await Model.AvailableLanguages.SelectAwait(async lang => new SelectListItem
+                    {
+                        Text = lang.Name,
+                        Value = Url.RouteUrl("ChangeLanguage", new { langid = lang.Id, returnUrl }, webHelper.GetCurrentRequestProtocol()),
+                        Selected = lang.Id.Equals(Model.CurrentLanguageId)
+                    }).ToListAsync();
+
+                <a class="selected-item" onclick="langDropdownToggle()">
+                    @foreach (var language in languages)
+                    {
+                        if (language.Selected)
+                        {
+                            <p>@language.Text</p>
+                            <div class="icon">
+                                <svg class="t4s-ion-select-arrow " role="presentation" viewBox="0 0 19 12">
+                                    <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="4" stroke-linecap="square">
+                                    </polyline>
+                                </svg>
+                            </div>
+                        }
+                    }
+                </a>
+                <ul class="dropdown-list" id="language-dropdown">
+                    @foreach (var language in languages)
+                    {
+                        if (language.Selected)
+                        {
+                            <li class="my-1 selected" onclick="setLocation('@language.Value')">
+                                <a >
+                                    @language.Text
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="my-1" onclick="setLocation('@language.Value')">
+                                <a href="@language.Value">
+                                    @language.Text
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            }
+
+        }
+    </div>
+}

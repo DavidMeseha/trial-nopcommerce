@@ -1,0 +1,56 @@
+﻿@model CurrencySelectorModel
+
+@inject Nop.Core.IWebHelper webHelper
+
+@if (Model.AvailableCurrencies.Count > 1)
+{
+    <div class="select-container">
+        @{
+            var returnUrl = webHelper.GetRawUrl(Context.Request);
+            var currencies = await Model.AvailableCurrencies.SelectAwait(async x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = Url.RouteUrl("ChangeCurrency", new { customercurrency = x.Id, returnUrl }, webHelper.GetCurrentRequestProtocol()),
+                    Selected = x.Id.Equals(Model.CurrentCurrencyId)
+                }).ToListAsync();
+
+            <a class="selected-item" onclick="currencyDropdownToggle()">
+                @foreach (var currency in currencies)
+                {
+                    if (currency.Selected)
+                    {
+                        <p>@currency.Text</p>
+                        <div class="icon">
+                            <svg class="t4s-ion-select-arrow " role="presentation" viewBox="0 0 19 12">
+                                <polyline fill="none" stroke="currentColor" points="17 2 9.5 10 2 2" fill-rule="evenodd" stroke-width="4" stroke-linecap="square">
+                                </polyline>
+                            </svg>
+                        </div>
+                    }
+                }
+            </a>
+
+            <ul class="dropdown-list" id="currency-dropdown">
+                @foreach (var currency in currencies)
+                {
+                    if (currency.Selected)
+                    {
+                        <li class="my-1 selected">
+                            <a>
+                                @currency.Text
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="my-1">
+                            <a href="@currency.Value">
+                                @currency.Text
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        }
+    </div>
+}
