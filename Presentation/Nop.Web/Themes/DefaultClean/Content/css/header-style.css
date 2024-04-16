@@ -152,7 +152,7 @@
 
 .header-menu > ul {
   display: block !important; /* prevents toggle display:none on resize */
-  transition: transform 300ms;
+  transition: all 300ms;
 }
 
   .header-menu > ul > li {
@@ -223,7 +223,7 @@
 li.menu-close {
   width: fit-content;
   padding: 5px !important;
-  float: right;
+  margin-inline-start: auto;
   margin-inline-end: -40px;
   background: white;
 }
@@ -258,7 +258,7 @@ li.menu-close {
   }
 
     .header-menu.open > ul {
-      transform: translateX(0);
+      inset-inline-start: 0;
     }
 
   .header-menu > ul {
@@ -266,8 +266,7 @@ li.menu-close {
     display: inline-block !important;
     top: 0;
     inset-block: 0;
-    inset-inline-start: 0;
-    transform: translateX(-250px);
+    inset-inline-start: -260px;
     background: #fff;
     padding-top: 3rem;
   }
