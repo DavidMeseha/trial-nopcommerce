@@ -925,11 +925,6 @@ label, label + * {
     margin: auto;
   }
 
-.header-links-wrapper {
-  position: relative;
-  padding: 20px 0;
-}
-
 .header-links {
 }
 

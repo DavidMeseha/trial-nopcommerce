@@ -44,9 +44,9 @@
 
             @if (Model.RegistrationType != UserRegistrationType.Disabled)
             {
-                <li><a href="@Url.RouteUrl("Register", new { returnUrl })" class="ico-register">@T("Account.Register")</a></li>
+                <li><a href="@Url.RouteUrl("Register", new { returnUrl })">@T("Account.Register")</a></li>
             }
-            <li><a href="@Url.RouteUrl("Login", new { returnUrl })" class="ico-login">@T("Account.Login")</a></li>
+            <li><a href="@Url.RouteUrl("Login", new { returnUrl })">@T("Account.Login")</a></li>
         }
         @if (Model.WishlistEnabled)
         {

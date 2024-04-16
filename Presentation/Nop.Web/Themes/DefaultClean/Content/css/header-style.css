@@ -117,7 +117,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
 }
 
 .logo-text {
@@ -143,6 +142,7 @@
   text-align: center;
   width: auto;
   z-index: 5;
+  transition: opacity 200ms;
 }
 
 .menu-toggle,
@@ -152,11 +152,8 @@
 
 .header-menu > ul {
   display: block !important; /* prevents toggle display:none on resize */
+  transition: transform 300ms;
 }
-
-  .header-menu > ul.mobile {
-    display: none !important;
-  }
 
   .header-menu > ul > li {
     display: inline-block;
@@ -219,6 +216,18 @@
   left: 100% !important;
 }
 
+.mobile {
+  display: none !important;
+}
+
+li.menu-close {
+  width: fit-content;
+  padding: 5px !important;
+  float: right;
+  margin-inline-end: -40px;
+  background: white;
+}
+
 @media (max-width:1024px) {
   .top-announcement-header .container {
     flex-direction: column;
@@ -233,14 +242,6 @@
 }
 
 @media (max-width: 1000px) {
-  .header-menu {
-    position: relative;
-    z-index: 1;
-    width: 90%;
-    max-width: 600px;
-    margin: 0 auto 40px;
-  }
-
   .menu-toggle {
     background: #4ab2f1 url('../images/menu-icon.png') right center no-repeat;
     padding: 15px;
@@ -251,75 +252,49 @@
     cursor: pointer;
   }
 
-  .top-menu {
+  .header-menu.open {
+    background: #222222a1;
+    pointer-events: all;
+  }
+
+    .header-menu.open > ul {
+      transform: translateX(0);
+    }
+
+  .header-menu > ul {
+    position: fixed;
+    display: inline-block !important;
+    top: 0;
+    inset-block: 0;
+    inset-inline-start: 0;
+    transform: translateX(-250px);
+    background: #fff;
+    padding-top: 3rem;
+  }
+
+  .header-menu {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: unset;
+  }
+
+    .header-menu ul li {
+      position: relative;
+      display: block;
+      padding: 2rem 5rem;
+    }
+
+
+  .mobile {
+    display: block !important;
+  }
+
+  .notmobile {
     display: none;
   }
 
-    .top-menu > li {
-      position: relative;
-      margin: 1px 0;
-      background-color: #f6f6f6;
-    }
-
-      .top-menu > li > a {
-        display: block;
-        min-height: 55px;
-        padding: 18px;
-        font-size: 15px;
-        color: #555;
-      }
-
-        .top-menu > li > a:focus {
-          position: relative;
-          z-index: 1;
-        }
-
-    .top-menu .sublist {
-      display: none;
-      background-color: #fff;
-      padding: 5px 0;
-    }
-
-      .top-menu .sublist li {
-        position: relative;
-        margin: 1px 0 1px 20px;
-      }
-
-        .top-menu .sublist li a {
-          display: block;
-          padding: 15px 18px;
-          font-size: 15px;
-        }
-
-  .sublist-toggle {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 55px;
-    height: 55px;
-    border-left: 1px solid #fff;
-    background: url('../images/toggle-black.png') center no-repeat;
-    padding: 15px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #fff;
-    text-transform: uppercase;
-    cursor: pointer;
+  .logo-text {
+    text-align: center;
   }
-
-  .sublist .sublist-toggle {
-    height: auto;
-  }
-
-  .sublist .sublist li {
-    background-color: #f6f6f6;
-  }
-
-  .sublist .sublist .sublist li {
-    background-color: #fff;
-  }
-}
-
-.mobile {
-  display: none;
 }
